@@ -23,21 +23,16 @@ void printBoard(int *entries, char *playerChar, int entriCount, int charCount)
 
     for (int i = 0; i < entriCount; i++)
     {
-        for (int j = 0; j < charCount; j++)
-        {
-            if (entries[i] == j)
-            {
-
                 if ((i + 1) % 3 == 0)
                 {
-                    printf(" %c\n", playerChar[j]);
+                    printf(" %c\n", playerChar[entries[i]]);
                 }
                 else
                 {
-                    printf(" %c ", playerChar[j]);
+                    printf(" %c ", playerChar[entries[i]]);
                 }
-            }
-        }
+            
+        
     }
 }
 
@@ -121,7 +116,7 @@ int checkWinner(int *entries, int entriCount)
 int main(int argc, char const *argv[])
 {
 
-    int move = 0;
+    int moves = 0;
     // 1-O 2-X
     int turn = 1;
     int GameEnd = 0;
@@ -155,13 +150,13 @@ int main(int argc, char const *argv[])
         }
         entries[enteredPos - 1] = turn;
 
-        move++;
+        moves++;
         turn = 3 - turn;
         printBoard(entries, playerChar, 9, 3);
 
         GameEnd = checkWinner(entries, 9);
 
-        if (move == 9 && GameEnd == 0)
+        if (moves == 9 && GameEnd == 0)
         {
             GameEnd = 3;
         }
