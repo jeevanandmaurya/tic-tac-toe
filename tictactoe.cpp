@@ -23,41 +23,28 @@ int checkWinner(int entries[])
 {
 
     // Horizontal
-    if (entries[0] == entries[1] && entries[1] == entries[2])
-    {
+    if (entries[0] == entries[1] && entries[1] == entries[2]){
         return entries[0];
-    }
-    else if (entries[3] == entries[4] && entries[4] == entries[5])
-    {
+    } else if (entries[3] == entries[4] && entries[4] == entries[5]) {
         return entries[3];
-    }
-    else if (entries[6] == entries[7] && entries[7] == entries[8])
-    {
+    } else if (entries[6] == entries[7] && entries[7] == entries[8]) {
         return entries[6];
     }
 
     // Vertical
-    if (entries[0] == entries[3] && entries[3] == entries[6])
-    {
+    if (entries[0] == entries[3] && entries[3] == entries[6]) {
         return entries[0];
-    }
-    else if (entries[1] == entries[4] && entries[4] == entries[7])
-    {
+    }else if (entries[1] == entries[4] && entries[4] == entries[7]) {
         return entries[1];
-    }
-    else if (entries[2] == entries[5] && entries[5] == entries[7])
-    {
+    } else if (entries[2] == entries[5] && entries[5] == entries[7]) {
         return entries[2];
     }
 
     // Diagonal
-    //////
-    if (entries[0] == entries[4] && entries[4] == entries[8])
-    {
+
+    if (entries[0] == entries[4] && entries[4] == entries[8])  {
         return entries[0];
-    }
-    else if (entries[2] == entries[4] && entries[4] == entries[6])
-    {
+    } else if (entries[2] == entries[4] && entries[4] == entries[6]) {
         return entries[2];
     }
 

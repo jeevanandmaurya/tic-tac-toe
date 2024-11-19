@@ -1,10 +1,7 @@
 
 import java.util.Scanner;
 
-
 public class tictactoe {
-
-   
 
     public static void main(String[] args) {
 
@@ -23,43 +20,38 @@ public class tictactoe {
             entries[i] = 0;
         }
         printBoard(entries, playerChar);
-        int enteredPos=0;
-        
-       Scanner scan=new Scanner(System.in);
-       while(GameEnd==0){
+        int enteredPos;
 
-        System.out.print("\n\nPlayer "+turn+" Turn - "+playerChar[turn]+"\n");
-        System.out.print("Enter Position: \n");
-        scan.nextInt(enteredPos);
+        Scanner scan = new Scanner(System.in);
 
-        while (entries[enteredPos - 1] != 0 || enteredPos > 9)
-        {
-            System.out.println("Invalid Input, Retry");
-            System.out.println("Enter Position: ");
-            scan.nextInt(enteredPos);
+        while (GameEnd == 0) {
+
+            System.out.print("\n\nPlayer " + turn + " Turn - " + playerChar[turn] + "\n");
+            System.out.print("Enter Position: \n");
+            enteredPos = scan.nextInt();
+
+            while (enteredPos > 9 || entries[enteredPos - 1] != 0) {
+                System.out.println("Invalid Input, Retry");
+                System.out.println("Enter Position: ");
+                enteredPos = scan.nextInt();
+            }
+            entries[enteredPos - 1] = turn;
+
+            moves++;
+            turn = 3 - turn;
+            printBoard(entries, playerChar);
+
+            GameEnd = checkWinner(entries);
+
+            if (moves == 9 && GameEnd == 0) {
+                GameEnd = 3;
+            }
         }
-        entries[enteredPos - 1] = turn;
-
-        moves++;
-        turn = 3 - turn;
-        printBoard(entries, playerChar);
-
-        GameEnd = checkWinner(entries);
-
-        if (moves == 9 && GameEnd == 0)
-        {
-            GameEnd = 3;
+        if (GameEnd == 3) {
+            System.out.println("\nGame Draw!!!!!");
+        } else {
+            System.out.println("\nGame End!!!!!\nWinner is Player: " + GameEnd + "\n" + playerChar[GameEnd] + playerChar[GameEnd] + playerChar[GameEnd]);
         }
-    }
-    if (GameEnd == 3)
-    {
-         System.out.println("\nGame Draw!!!!!");
-    }
-    else
-    {
-         System.out.println("\nGame End!!!!!\nWinner is Player: "+GameEnd+"\n"+playerChar[GameEnd]+ playerChar[GameEnd]+playerChar[GameEnd]);
-    }
-
 
     }
 
@@ -69,58 +61,43 @@ public class tictactoe {
             if ((i + 1) % 3 == 0) {
                 System.out.print(playerChar[entries[i]] + " \n");
             } else {
-                System.out.print(playerChar[entries[i]]+" ");
+                System.out.print(playerChar[entries[i]] + " ");
             }
 
         }
 
     }
 
- public static int checkWinner(int entries[]) {
+    public static int checkWinner(int entries[]) {
 
+        // Horizontal
+        if (entries[0] == entries[1] && entries[1] == entries[2]) {
+            return entries[0];
+        } else if (entries[3] == entries[4] && entries[4] == entries[5]) {
+            return entries[3];
+        } else if (entries[6] == entries[7] && entries[7] == entries[8]) {
+            return entries[6];
+        }
 
+        // Vertical
+        if (entries[0] == entries[3] && entries[3] == entries[6]) {
+            return entries[0];
+        } else if (entries[1] == entries[4] && entries[4] == entries[7]) {
+            return entries[1];
+        } else if (entries[2] == entries[5] && entries[5] == entries[7]) {
+            return entries[2];
+        }
 
-    // Horizontal
-    if (entries[0] == entries[1] && entries[1] == entries[2])
-    {
-        return entries[0];
-    }
-    else if (entries[3] == entries[4] && entries[4] == entries[5])
-    {
-        return entries[3];
-    }
-    else if (entries[6] == entries[7] && entries[7] == entries[8])
-    {
-        return entries[6];
-    }
+        // Diagonal
+        //-\\\
+        if (entries[0] == entries[4] && entries[4] == entries[8]) {
+            return entries[0];
+        } //-///
+        else if (entries[2] == entries[4] && entries[4] == entries[6]) {
+            return entries[2];
+        }
 
-    // Vertical
-    if (entries[0] == entries[3] && entries[3] == entries[6])
-    {
-        return entries[0];
-    }
-    else if (entries[1] == entries[4] && entries[4] == entries[7])
-    {
-        return entries[1];
-    }
-    else if (entries[2] == entries[5] && entries[5] == entries[7])
-    {
-        return entries[2];
-    }
-
-    // Diagonal
-    //-\\\
-    if (entries[0] == entries[4] && entries[4] == entries[8])
-    {
-        return entries[0];
-    }
-    //-///
-    else if (entries[2] == entries[4] && entries[4] == entries[6])
-    {
-        return entries[2];
+        return 0;
     }
 
-    return 0;
-    }
-    
 }
