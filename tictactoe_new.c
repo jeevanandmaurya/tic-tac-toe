@@ -29,6 +29,34 @@ int state[3][3] = {0};
 int x = 0, y = 0;
 int pInput = 0;
 
+void checkWinner(int state[3][3])
+{
+
+    for (int i = 0; i < 3; i++)
+    {
+
+        // Horizontal
+        if (state[i][0] == inplay && state[i][0] == state[i][1] && state[i][0] == state[i][2])
+        {
+            gamestate = 0;
+            //Making it Bold
+            printf("%c",ch[inplay]);
+        }
+        // // Vertical
+        if (state[0][i] == inplay && state[0][i] == state[1][i] && state[0][i] == state[2][i])
+        {
+            gamestate = 0;
+        }
+    }
+    // Diagonal
+    // if(state[0][0]=inplay && state[0][0]==state[1][1] && state[0][0]==state[2][2]){
+    //     gamestate=0;
+    // }
+
+
+
+}
+
 void update()
 {
 
@@ -38,22 +66,27 @@ void update()
     // Take Input
     printf("\033[6C");
     scanf("%d", &pInput);
-    if (pInput > 0 && pInput < 10 && (!state[(pInput-1) / 3][(pInput-1) % 3]))
+    if (pInput > 0 && pInput < 10 && (!state[(pInput - 1) / 3][(pInput - 1) % 3]))
     {
         // Updating State
-        state[(pInput-1) / 3][(pInput-1) % 3] = inplay;
+        state[(pInput - 1) / 3][(pInput - 1) % 3] = inplay;
         // Printing O/X
-        x = 16 + 2 * ((pInput-1) % 3);
-        y = 8 + (pInput-1) / 3;
+        x = 16 + 2 * ((pInput - 1) % 3);
+        y = 8 + (pInput - 1) / 3;
         printf("\033[%d;%dH%c", y, x, ch[inplay]);
-
-        // Switching InPlaying
-        inplay = 3 - inplay;
     }
-}
+    // Check Winner
+    checkWinner(state);
 
-int checkWinner(int *entries, int entriCount)
-{
+    if (gamestate==0)
+    {
+        
+    }
+    
+
+
+    // Switching InPlaying
+    inplay = 3 - inplay;
 }
 
 int main()
@@ -142,6 +175,16 @@ int main()
         // }
 
         update();
+
+    if(gamestate==0){
+
+
+
+
+    }
+    
+
+
     }
     printf("\007");
     // Bottom Margin
